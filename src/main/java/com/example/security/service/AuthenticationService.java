@@ -1,7 +1,7 @@
 package com.example.security.service;
 
-import com.example.security.auth.AuthenticationRequest;
-import com.example.security.auth.AuthenticationResponse;
+import com.example.security.dto.AuthRequestDTO;
+import com.example.security.dto.AuthResponseDTO;
 import com.example.security.entity.Role;
 import com.example.security.entity.User;
 import com.example.security.repository.RoleCustomRepository;
@@ -25,15 +25,15 @@ public class AuthenticationService {
     private final RoleCustomRepository roleCustomRepository;
     private final JwtService jwtService;
 
-    public AuthenticationResponse authenticationResponse(AuthenticationRequest authenticationRequest) {
+    public AuthResponseDTO authenticationResponse(AuthRequestDTO authRequestDTO) {
         // Authenticate
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        authenticationRequest.getEmail(),
-                        authenticationRequest.getPassword())
+                        authRequestDTO.getEmail(),
+                        authRequestDTO.getPassword())
                 );
 
-        User user = userRepository.findByEmail(authenticationRequest.getEmail()).orElseThrow();
+        User user = userRepository.findByEmail(authRequestDTO.getEmail()).orElseThrow();
 
         Set<Role> roleSet = new HashSet<>();
 
@@ -45,7 +45,7 @@ public class AuthenticationService {
         roleSet.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         String jwtToken = jwtService.generateToken(user, authorities);
         String jwtRefreshToken = jwtService.generateRefreshToken(user, authorities);
-        return AuthenticationResponse.builder()
+        return AuthResponseDTO.builder()
                 .token(jwtToken)
                 .refreshToken(jwtRefreshToken)
                 .build();

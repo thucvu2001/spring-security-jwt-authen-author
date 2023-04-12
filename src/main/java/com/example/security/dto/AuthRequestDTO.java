@@ -1,4 +1,4 @@
-package com.example.security.auth;
+package com.example.security.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
+public class AuthRequestDTO {
     private String email;
     private String password;
 }

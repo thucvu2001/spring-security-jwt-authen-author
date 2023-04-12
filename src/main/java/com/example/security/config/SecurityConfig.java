@@ -25,8 +25,9 @@ public class SecurityConfig {
         httpSecurity.sessionManagement().sessionCreationPolicy(STATELESS);
         httpSecurity.authorizeRequests()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/api/v1/auth").permitAll()
-                .requestMatchers("/demo").hasAuthority("ROLE_USERS")
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/demo/login").hasAuthority("ROLE_USERS")
+                .requestMatchers("demo/get-roles").hasAuthority("ROLE_USERS")
                 .and()
                 .csrf().disable()
                 .authorizeRequests()

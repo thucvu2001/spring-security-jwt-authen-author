@@ -1,7 +1,7 @@
 package com.example.security.controller;
 
-import com.example.security.auth.AuthenticationRequest;
-import com.example.security.auth.AuthenticationResponse;
+import com.example.security.dto.AuthRequestDTO;
+import com.example.security.dto.AuthResponseDTO;
 import com.example.security.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) {
-        return ResponseEntity.ok(authenticationService.authenticationResponse(authenticationRequest));
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody AuthRequestDTO authRequestDTO) {
+        return ResponseEntity.ok(authenticationService.authenticationResponse(authRequestDTO));
     }
 }
