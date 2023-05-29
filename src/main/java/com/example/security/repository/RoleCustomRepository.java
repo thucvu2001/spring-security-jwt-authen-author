@@ -11,7 +11,6 @@ import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 
-import javax.xml.transform.Transformer;
 import java.util.List;
 
 @Repository
@@ -35,7 +34,6 @@ public class RoleCustomRepository {
         query.addScalar("name", StandardBasicTypes.STRING); // name chinh la r.name trong bang roles, String là kiểu của role name
         query.setResultTransformer(Transformers.aliasToBean(Role.class));
 
-        List<Role> roles = query.stream().toList();
-        return roles;
+        return query.stream().toList();
     }
 }

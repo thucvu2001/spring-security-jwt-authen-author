@@ -6,6 +6,7 @@ import com.example.security.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        User user = userRepository.findByEmail(username).get();
+        User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         Role role = roleService.findByName(roleName);
         user.getRoles().add(role);
         role.getUsers().add(user);

@@ -18,7 +18,7 @@ import java.util.*;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-    // UserDetails la khung có sẵn của
+    // UserDetails la khung có sẵn của Spring Security
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,7 +26,6 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
-
 
     @ManyToMany
     @JoinTable(
@@ -40,11 +39,17 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         roles.stream().forEach(i -> authorities.add(new SimpleGrantedAuthority(i.getName())));
-        return List.of(new SimpleGrantedAuthority(authorities.toString()));
+        return authorities;
     }
 
+    @Override
     public String getUsername() {
         return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
     @Override

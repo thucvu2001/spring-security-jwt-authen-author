@@ -19,13 +19,12 @@ import java.util.*;
 @Transactional
 @RequiredArgsConstructor
 public class AuthenticationService {
-    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleCustomRepository roleCustomRepository;
     private final JwtService jwtService;
 
-    public AuthResponseDTO authenticationResponse(AuthRequestDTO authRequestDTO) {
+    public AuthResponseDTO authenticateLogin(AuthRequestDTO authRequestDTO) {
         // Authenticate
         authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
@@ -37,11 +36,14 @@ public class AuthenticationService {
 
         Set<Role> roleSet = new HashSet<>();
 
-        if (user != null) {
-            roleCustomRepository.getRolesWithUser(user)
-                    .forEach(role -> roleSet.add(role));
-        }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>(); // List quyền
+//        if (user != null) {
+//            roleCustomRepository.getRolesWithUser(user)
+//                    .forEach(role -> roleSet.add(role));
+//        }
+//        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>(); // List quyền
+
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) user.getAuthorities();
+
         roleSet.stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         String jwtToken = jwtService.generateToken(user, authorities);
         String jwtRefreshToken = jwtService.generateRefreshToken(user, authorities);

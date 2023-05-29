@@ -1,6 +1,5 @@
 package com.example.security.config;
 
-import com.example.security.entity.User;
 import com.example.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Optional;
-
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfig {
+public class BaseSecurityConfig {
     // ApplicationConfig sẽ config UserDetailService: kiểm tra thông tin đăng nhập có tồn tại hay không?
     // AuthenticationProvider: hỗ trợ xác thực đầy đủ thông tin và trả về thông tin đó
     // AuthenticationManager: quản lý getAuthentication
@@ -30,12 +27,14 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // tim thong tin dang nhap co ton tai hay khong?
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+    // ho tro xac thuc
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -45,6 +44,7 @@ public class ApplicationConfig {
         return authenticationProvider;
     }
 
+    // quan li authentication bao gom danh sach cac authenticationProvider
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();

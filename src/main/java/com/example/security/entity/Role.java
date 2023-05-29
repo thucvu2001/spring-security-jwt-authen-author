@@ -20,6 +20,7 @@ public class Role {
     @Id
     @SequenceGenerator(name = "roles_sequence", sequenceName = "roles_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "roles_sequence")
+    // sequence là một đối tượng để tạo ra các giá trị duy nhất theo thứ tự nhất định
     private Long id;
     private String name;
 
