@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Roles")
-public class Role {
+public class Role implements Serializable {
     @Id
     @SequenceGenerator(name = "roles_sequence", sequenceName = "roles_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "roles_sequence")
