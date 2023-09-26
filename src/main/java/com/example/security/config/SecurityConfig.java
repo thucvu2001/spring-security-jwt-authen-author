@@ -1,5 +1,6 @@
 package com.example.security.config;
 
+import com.example.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final AuthenticationProvider authenticationProvider;
+    private final UserService userService;
 
     // config CORS
     @Bean
@@ -57,7 +59,7 @@ public class SecurityConfig {
 
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/demo/login").hasAuthority("ROLE_USERS")
-                .requestMatchers("demo/get-roles").hasAuthority("ROLE_USERS")
+                .requestMatchers("/demo/get-roles").hasAuthority("ROLE_SUPER_ADMIN")
                 .requestMatchers("/api/v1/client/**").permitAll()
                 .and()
 

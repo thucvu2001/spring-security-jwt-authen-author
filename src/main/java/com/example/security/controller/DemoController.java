@@ -2,6 +2,7 @@ package com.example.security.controller;
 
 
 import com.example.security.dto.AuthRequestDTO;
+import com.example.security.dto.RoleDTO;
 import com.example.security.entity.Role;
 import com.example.security.service.RoleService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,10 @@ public class DemoController {
     public ResponseEntity<List<Role>> getRoles(@RequestBody AuthRequestDTO authRequestDTO) {
         List<Role> roleList = roleService.getRolesWithUser(authRequestDTO.getEmail());
         return ResponseEntity.ok(roleList);
+    }
+
+    public ResponseEntity<Role> saveRole(@RequestBody Role role) {
+        roleService.saveRole(role);
+        return null;
     }
 }
