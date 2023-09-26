@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -38,6 +39,11 @@ public class UserServiceImpl implements UserService {
         Role role = roleService.findByName(roleName);
         user.getRoles().add(role);
         role.getUsers().add(user);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 
     @Override
