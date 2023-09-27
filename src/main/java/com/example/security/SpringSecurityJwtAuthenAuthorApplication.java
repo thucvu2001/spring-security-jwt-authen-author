@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.HashSet;
 
@@ -28,10 +27,10 @@ public class SpringSecurityJwtAuthenAuthorApplication {
 //    @Bean
 //    CommandLineRunner commandLineRunner(UserService userService, RoleService roleService) {
 //        return args -> {
-//            roleService.saveRole(new Role(null, "ROLE_USERS", new HashSet<>()));
-//            roleService.saveRole(new Role(null, "ROLE_MANAGER", new HashSet<>()));
-//            roleService.saveRole(new Role(null, "ROLE_ADMIN", new HashSet<>()));
-//            roleService.saveRole(new Role(null, "ROLE_SUPER_ADMIN", new HashSet<>()));
+//            roleService.saveRole(new Role(null, "ROLE_USERS", new HashSet<>(), new HashSet<>()));
+//            roleService.saveRole(new Role(null, "ROLE_MANAGER", new HashSet<>(), new HashSet<>()));
+//            roleService.saveRole(new Role(null, "ROLE_ADMIN", new HashSet<>(), new HashSet<>()));
+//            roleService.saveRole(new Role(null, "ROLE_SUPER_ADMIN", new HashSet<>(), new HashSet<>()));
 //
 //            userService.saveUser(new User(null, "Thuc Vu 01", "thucvu01", "vuthuc3152001@gmail.com", "123456", new HashSet<>()));
 //            userService.saveUser(new User(null, "Thuc Vu 02", "thucvu02", "vuthuc3152002@gmail.com", "123456", new HashSet<>()));

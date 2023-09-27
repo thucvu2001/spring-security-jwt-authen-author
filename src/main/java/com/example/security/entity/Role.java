@@ -16,18 +16,21 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Roles")
+@Table(name = "roles")
 public class Role implements Serializable {
     @Id
     @SequenceGenerator(name = "roles_sequence", sequenceName = "roles_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "roles_sequence")
     // sequence là một đối tượng để tạo ra các giá trị duy nhất theo thứ tự nhất định
-    private Long id;
-    private String name;
+    private Long roleId;
+    private String roleCode;
 
     @ManyToMany(mappedBy = "roles")
     @Fetch(value = FetchMode.SELECT)
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 
+    @ManyToMany(mappedBy = "roles")
+    @Fetch(value = FetchMode.SELECT)
+    private Set<Permission> permissions = new HashSet<>();
 }

@@ -46,9 +46,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> user = userService.findByUsername(authentication.getName());
-
         // Tắt CSRF
         httpSecurity.csrf().disable();
 
@@ -67,14 +64,14 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**").permitAll()
 
                 .requestMatchers("/api/v1/auth/**").permitAll()
-                .requestMatchers("/demo/login").hasAuthority("ROLE_USERS")
+                .requestMatchers("/demo/login").hasAuthority("ROLE_SUPER_ADMIN")
                 .requestMatchers("/demo/get-roles").hasAuthority("ROLE_SUPER_ADMIN")
                 .requestMatchers("/api/v1/client/**").permitAll()
                 .and()
 
                 // Yêu cầu các yêu cầu khác phải được xác thực
                 .authorizeHttpRequests()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
 
                 // Đặt AuthenticationProvider để xác thực người dùng

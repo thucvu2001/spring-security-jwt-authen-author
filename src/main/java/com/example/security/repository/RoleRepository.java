@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    Role findByName(String roleName);
+    Role findByRoleCode(String roleCode);
 
     @Query(nativeQuery = true, value = """
             select r.id as id, r.name as name
