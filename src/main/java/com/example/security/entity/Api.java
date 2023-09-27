@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "apis")
-public class Api {
+public class Api implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long apiId;

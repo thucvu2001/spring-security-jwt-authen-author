@@ -2,7 +2,6 @@ package com.example.security.controller;
 
 
 import com.example.security.dto.AuthRequestDTO;
-import com.example.security.dto.RoleDTO;
 import com.example.security.entity.Permission;
 import com.example.security.entity.Role;
 import com.example.security.service.*;

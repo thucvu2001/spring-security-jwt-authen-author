@@ -29,7 +29,6 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private final AuthenticationProvider authenticationProvider;
-    private final UserService userService;
 
     // config CORS
     @Bean
@@ -45,7 +44,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
         // Tắt CSRF
         httpSecurity.csrf().disable();
 
@@ -63,15 +61,15 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
 
-                .requestMatchers("/api/v1/auth/**").permitAll()
-                .requestMatchers("/demo/login").hasAuthority("ROLE_SUPER_ADMIN")
-                .requestMatchers("/demo/get-roles").hasAuthority("ROLE_SUPER_ADMIN")
+                .requestMatchers("/api/v1/auth/login").permitAll()
+                .requestMatchers("/demo/login").hasAuthority("ROLE_USERS")
+                .requestMatchers("/demo/get-roles").hasAuthority("ROLE_USERS")
                 .requestMatchers("/api/v1/client/**").permitAll()
                 .and()
 
                 // Yêu cầu các yêu cầu khác phải được xác thực
                 .authorizeHttpRequests()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
 
                 // Đặt AuthenticationProvider để xác thực người dùng
