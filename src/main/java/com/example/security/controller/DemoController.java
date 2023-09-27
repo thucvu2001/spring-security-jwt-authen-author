@@ -2,6 +2,7 @@ package com.example.security.controller;
 
 
 import com.example.security.dto.AuthRequestDTO;
+import com.example.security.dto.PermissionRequest;
 import com.example.security.entity.Permission;
 import com.example.security.entity.Role;
 import com.example.security.service.*;
@@ -39,8 +40,14 @@ public class DemoController {
     }
 
     @PostMapping("/add-api-to-permission")
-    public String addApiToPermission (@RequestBody String permissionCode, @RequestBody List<String> apiCodes) {
-        permissionService.addApiToPermission(permissionCode, apiCodes);
+    public String addApiToPermission (@RequestBody PermissionRequest request) {
+        permissionService.addApi(request.getPermissionCode(), request.getApiCodes());
+        return "Success";
+    }
+
+    @PostMapping("/remove-api-from-permission")
+    public String removeApiFromPermission (@RequestBody PermissionRequest request) {
+        permissionService.removeApi(request.getPermissionCode(), request.getApiCodes());
         return "Success";
     }
 }

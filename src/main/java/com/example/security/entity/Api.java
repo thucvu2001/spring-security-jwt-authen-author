@@ -23,6 +23,8 @@ public class Api implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long apiId;
+
+    @Column(unique = true)
     private String apiCode;
 
     @Column(unique = true)

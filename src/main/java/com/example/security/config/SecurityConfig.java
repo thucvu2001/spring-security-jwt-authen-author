@@ -64,7 +64,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/login").permitAll()
                 .requestMatchers("/demo/login").hasAuthority("ROLE_USERS")
                 .requestMatchers("/demo/get-roles").hasAuthority("ROLE_USERS")
-                .requestMatchers("/api/v1/client/**").permitAll()
+//                .requestMatchers("/api/v1/client/**").permitAll()
+                .requestMatchers("/demo/add-api-to-permission").hasAuthority("ROLE_USERS")
                 .and()
 
                 // Yêu cầu các yêu cầu khác phải được xác thực

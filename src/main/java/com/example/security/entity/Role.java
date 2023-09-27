@@ -33,4 +33,14 @@ public class Role implements Serializable {
     @ManyToMany(mappedBy = "roles")
     @Fetch(value = FetchMode.SELECT)
     private Set<Permission> permissions = new HashSet<>();
+
+    public void addPermission(Permission permission) {
+        this.permissions.add(permission);
+        permission.getRoles().add(this);
+    }
+
+    public void removePermission (Permission permission) {
+        this.permissions.remove(permission);
+        permission.getRoles().remove(this);
+    }
 }

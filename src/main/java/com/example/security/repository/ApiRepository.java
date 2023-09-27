@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ApiRepository extends JpaRepository<Api, Long> {
 
-    @Query(value = "SELECT * FROM api WHERE api_code IN :apiCodes", nativeQuery = true)
-    List<Api> findAllByApiCodes(List<String> apiCode);
+    @Query(value = "SELECT * FROM apis WHERE apis.api_code IN :apiCodes", nativeQuery = true)
+    List<Api> findAllByApiCodes(List<String> apiCodes);
 }

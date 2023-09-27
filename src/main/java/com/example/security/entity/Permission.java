@@ -40,4 +40,13 @@ public class Permission implements Serializable {
     )
     private Set<Role> roles = new HashSet<>();
 
+    public void addApi(Api api) {
+        this.listApi.add(api);
+        api.getPermissions().add(this);
+    }
+
+    public void removeApi (Api api) {
+        this.listApi.remove(api);
+        api.getPermissions().remove(this);
+    }
 }
